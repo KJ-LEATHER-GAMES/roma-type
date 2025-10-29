@@ -7,6 +7,9 @@ on:
 jobs:
   quality:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
 
@@ -15,13 +18,15 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      # ★ pnpm を corepack で有効化＆バージョン固定
-      - run: corepack enable
-      - run: corepack prepare pnpm@9.12.0 --activate
-      - run: pnpm --version  # ← デバッグ（存在確認）
+      # ← ここで pnpm を確実にインストール&有効化
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+          run_install: false
 
-      - run: pnpm i --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm format:check
+      - run: pnpm --version
 
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run typecheck
+      - run: pnpm run format:check
