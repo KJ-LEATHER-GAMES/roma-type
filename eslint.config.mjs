@@ -8,7 +8,11 @@ import unusedImports from 'eslint-plugin-unused-imports';
 
 export default [
     // 無視
-    { ignores: ['dist', 'node_modules'] },
+    { ignores: [
+        'dist/',
+        'node_modules/',
+        'src-tauri/target/',
+        'src-tauri/gen/'] },
 
     // JSの基本推奨
     js.configs.recommended,

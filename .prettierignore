@@ -1,4 +1,25 @@
-dist
-node_modules
-pnpm-lock.yaml
-pnpm-workspace.yaml
+# JS/TS build outputs
+dist/
+build/
+.vite/
+coverage/
+
+# Rust (Tauri) build outputs
+src-tauri/target/
+src-tauri/gen/
+
+# Node deps
+node_modules/
+
+# Binaries / artifacts Prettier should not read
+**/*.lib
+**/*.dll
+**/*.exe
+**/*.pdb
+**/*.wasm
+**/*.ico
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.pdf
