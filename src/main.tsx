@@ -1,11 +1,19 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+// src/main.tsx
+// 1. インポート
+import React from 'react';
+// 2. ReactDOMインポート
+import ReactDOM from 'react-dom/client';
+// 3. RouterProviderインポート
+import { RouterProvider } from 'react-router-dom';
 
-import './index.css';
-import App from './App.tsx';
+// 4. ルーターインポート
+import { router } from './app/router.tsx';
+// 5. CSSインポート
+import './styles/globals.css'; // ← 忘れずに
 
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <App />
-    </StrictMode>,
+// 6. ReactDOM.createRootを使用してルートをレンダリング
+ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>,
 );
