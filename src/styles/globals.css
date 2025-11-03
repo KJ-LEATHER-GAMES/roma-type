@@ -1,0 +1,97 @@
+:root {
+    color-scheme: light dark;
+    --max-w: 960px; /* コンテンツ幅の上限（S0-4でトークン化予定） */
+    --space: 16px; /* 基本余白 */
+    --space-sm: 8px;
+    --border: 1px solid #4444;
+    --focus: 2px solid currentColor; /* フォーカス強調 */
+}
+
+* {
+    box-sizing: border-box;
+}
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+.app-shell {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Header / Main / Footer */
+}
+
+.header,
+.footer {
+    padding: 12px 16px;
+    background: transparent;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10; /* スクロール時にヘッダ固定 */
+    border-bottom: var(--border);
+    backdrop-filter: blur(2px);
+}
+
+.footer {
+    border-top: var(--border);
+}
+
+.container {
+    width: min(var(--max-w), 100%);
+    margin: 0 auto;
+}
+
+.main {
+    padding: var(--space);
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+}
+.skip-link:focus {
+    left: var(--space);
+    top: var(--space);
+    background: Canvas;
+    color: CanvasText;
+    padding: var(--space-sm) var(--space);
+    border-radius: 6px;
+    outline: var(--focus);
+}
+
+.nav {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.nav a {
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    outline-offset: 2px; /* キーボードフォーカス視認性 */
+}
+
+/* 現在ページの視覚強調（NavLinkのaria-currentを利用） */
+.nav a[aria-current='page'] {
+    outline: var(--focus);
+}
+
+/* ボタンの素朴なスタイル（MVP用、S0-4でコンポーネント化予定） */
+.btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: var(--border);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+.btn:focus-visible {
+    outline: var(--focus);
+}
