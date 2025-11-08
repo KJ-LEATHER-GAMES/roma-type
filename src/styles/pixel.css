@@ -1,0 +1,186 @@
+/* 1) フォント読み込み */
+/* === Fonts === */
+@font-face {
+    font-family: 'PixelUI';
+    src:
+        local('PixelMplus10 Regular'),
+        url('/src/assets/fonts/PixelMplus10-Regular.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DotGothic16Local';
+    src:
+        local('DotGothic16'),
+        url('/src/assets/fonts/DotGothic16-Regular.ttf') format('truetype');
+    font-display: swap;
+}
+
+/* ベース適用（PixelUI→DotGothic16Local→system） */
+:root {
+    --font-ui: 'PixelUI', 'DotGothic16Local', system-ui, sans-serif;
+}
+body {
+    font-family: var(--font-ui);
+}
+
+/* ピクセル感の補正（文字間＆アンチエイリアス抑制） */
+.pixel-font-tight {
+    letter-spacing: 0.02em; /* つぶれ防止に少しだけ広げる */
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
+}
+/* 1) フォーム要素にフォント継承を強制 */
+button,
+input,
+select,
+textarea {
+    font: inherit; /* family/size/weight まとめて継承 */
+}
+
+.pixel-font-press {
+    font-family: var(--font-ui);
+    letter-spacing: 0.05em;
+}
+
+/* 2) カラーパレット（NES系の例） */
+:root {
+    --bg: #1a1a1a;
+    --fg: #f8f8d8;
+    --muted: #bfbfa0;
+    --accent: #ffb000;
+    --accent-2: #4cc9f0;
+    --panel: #2a2a2a;
+    --panel-edge: #ffffff20;
+}
+
+/* === Palette 1: GB Mono（モノクロ×黄緑） === */
+:root[data-theme='gb'] {
+    --bg: #0f380f;
+    --fg: #e0f8cf;
+    --muted: #88c070;
+    --accent: #306230;
+    --accent-2: #8bac0f;
+    --panel: #1f4a1f;
+    --panel-edge: #00000040;
+}
+
+/* === Palette 2: Arcade Neon（黒×ネオン） === */
+:root[data-theme='neon'] {
+    --bg: #0a0a0f;
+    --fg: #e6e6ff;
+    --muted: #9aa0b4;
+    --accent: #8a2be2; /* violet */
+    --accent-2: #00e5ff; /* cyan */
+    --panel: #141424;
+    --panel-edge: #7f7fff33;
+}
+
+/* === Palette 3: Famicom Warm（既定） === */
+:root[data-theme='fam'] {
+    --bg: #1a1a1a;
+    --fg: #f8f8d8;
+    --muted: #bfbfa0;
+    --accent: #ffb000;
+    --accent-2: #e24e1b;
+    --panel: #2a2a2a;
+    --panel-edge: #ffffff20;
+}
+
+/* 3) ベース適用 */
+html,
+body,
+#root {
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+}
+body {
+    margin: 0;
+    font-family: 'PixelUI', system-ui, sans-serif;
+    /* ドットのにじみ軽減（環境依存） */
+    image-rendering: pixelated;
+}
+
+/* 4) 汎用ユーティリティ */
+.pixelated,
+img,
+canvas {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges; /* 一部ブラウザ向けフォールバック */
+}
+
+/* 5) レトロUIプリミティブ */
+.pixel-panel {
+    background: var(--panel);
+    padding: 12px;
+    border: 2px solid #000;
+    box-shadow:
+        0 0 0 2px #000 inset,
+        0 0 0 4px var(--panel-edge) inset;
+    border-radius: 6px;
+}
+
+/* 6) スキャンライン（任意・演出ON/OFF用クラス） */
+.scanlines::after {
+    content: '';
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    mix-blend-mode: multiply;
+}
+
+/* === 1) box-shadow 階段縁取り（角丸/角張り切替） === */
+.pixel-outline {
+    position: relative;
+    border: 2px solid #000;
+    background: var(--panel);
+}
+.pixel-outline--rounded {
+    border-radius: 8px;
+}
+.pixel-outline--square {
+    border-radius: 0;
+}
+
+/* 立体感（インセット） */
+.pixel-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow:
+        0 0 0 2px #000 inset,
+        /* 内側黒縁 */ 0 0 0 4px var(--panel-edge) inset; /* 更に内側の薄縁 */
+    border-radius: inherit;
+}
+
+/* ボタン（角丸/角張り） */
+.pixel-button {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 2px solid #000;
+    background: var(--accent);
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    user-select: none;
+}
+.pixel-button--rounded {
+    border-radius: 8px;
+}
+.pixel-button--square {
+    border-radius: 0;
+}
+.pixel-button:active {
+    transform: translateY(1px);
+}

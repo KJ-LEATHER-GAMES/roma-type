@@ -9,9 +9,13 @@ import { RouterProvider } from 'react-router-dom';
 // 4. ルーターインポート
 import { router } from './app/router.tsx';
 // 5. CSSインポート
-import './styles/globals.css'; // ← 忘れずに
+import './styles/pixel.css'; // ← 忘れずに
+// 6. テーマインポート
+import { initTheme } from './shared/theme.ts';
 
-// 6. ReactDOM.createRootを使用してルートをレンダリング
+// 7. テーマ初期化
+initTheme();
+// 8. ReactDOM.createRootを使用してルートをレンダリング
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <RouterProvider router={router} />
