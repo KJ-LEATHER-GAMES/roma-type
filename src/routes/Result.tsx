@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { PixelButton } from '../../components/ui/PixelButton';
-import { PixelPanel } from '../../components/ui/PixelPanel';
-import { ThemeSwitcher } from '../../components/ui/ThemeSwitcher';
+import { PixelPanel, PixelButton, ThemeSwitcher } from '@/components/ui';
 
 export default function Result() {
     const navigate = useNavigate();
@@ -16,7 +14,7 @@ export default function Result() {
                 </h1>
                 <ThemeSwitcher />
             </header>
-            <PixelPanel rounded={false}>
+            <PixelPanel pixcel-rounded={false}>
                 <h2 className="pixel-font-tight" style={{ marginTop: 0 }}>
                     Result
                 </h2>

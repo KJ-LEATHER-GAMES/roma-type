@@ -2,9 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { PixelButton } from '../../components/ui/PixelButton';
-import { PixelPanel } from '../../components/ui/PixelPanel';
-import { ThemeSwitcher } from '../../components/ui/ThemeSwitcher';
+import { PixelPanel, PixelButton, ThemeSwitcher } from '@/components/ui';
 
 export default function Play() {
     const navigate = useNavigate();
@@ -45,7 +43,7 @@ export default function Play() {
                 </p>
                 <div style={{ display: 'flex', gap: 8 }}>
                     <PixelButton>Pause</PixelButton>
-                    <PixelButton rounded={false}>Give up</PixelButton>
+                    <PixelButton pixcel-rounded={false}>Give up</PixelButton>
                 </div>
             </PixelPanel>
             <section aria-labelledby="play-title">

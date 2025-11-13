@@ -66,4 +66,19 @@ export default [
             '@typescript-eslint/no-non-null-assertion': 'off',
         },
     },
+    // eslint.config.mjs の export default 配列の末尾あたりに追加
+    {
+        files: ["**/*.{ts,tsx,js,jsx}"],
+        settings: {
+            "import/resolver": {
+                typescript: {
+                // VSCode や CLI の ESLint が参照すべき tsconfig を列挙
+                    project: ["./tsconfig.json"]
+                },
+                node: {
+                    extensions: [".js", ".jsx", ".ts", ".tsx"]
+                }
+            }
+        }
+    }
 ];

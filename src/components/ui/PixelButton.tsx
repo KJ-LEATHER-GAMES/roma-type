@@ -1,21 +1,38 @@
+// src/components/ui/PixelButton.tsx
+import clsx from 'clsx';
 import React from 'react';
 
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    rounded?: boolean;
-};
+type PixelButtonProps<T extends React.ElementType = 'button'> = {
+    as?: T;
+    className?: string;
+    isActive?: boolean;
+    children?: React.ReactNode;
+} & Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'className' | 'children'>;
 
-export function PixelButton({ rounded = true, className, ...rest }: Props) {
+export const PixelButton = <T extends React.ElementType = 'button'>(props: PixelButtonProps<T>) => {
+    const { as, className, isActive = false, children, ...rest } = props;
+
+    // ✅ キャスト不要版
+    const Component: React.ElementType = as || 'button';
+
+    const buttonSpecificProps =
+        Component === 'button'
+            ? ({ type: 'button' } as React.ComponentPropsWithoutRef<'button'>)
+            : {};
+
     return (
-        <button
+        <Component
+            {...buttonSpecificProps}
             {...rest}
-            className={[
-                'pixel-button',
-                rounded ? 'pixel-button--rounded' : 'pixel-button--square',
-                'pixel-font-tight',
-                className ?? '',
-            ]
-                .join(' ')
-                .trim()}
-        />
+            className={clsx(
+                'pixel-outline pixel-rounded u-pad-s',
+                'pixelated',
+                'u-center',
+                { 'u-flash': isActive },
+                className,
+            )}
+        >
+            {children}
+        </Component>
     );
-}
+};

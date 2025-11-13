@@ -1,0 +1,55 @@
+/* src/styles/utilities.css */
+.u-flex {
+    display: flex;
+}
+.u-col {
+    display: flex;
+    flex-direction: column;
+}
+.u-center {
+    display: grid;
+    place-items: center;
+}
+.u-gap-s {
+    gap: calc(var(--unit));
+}
+.u-gap-m {
+    gap: calc(var(--unit) * 2);
+}
+.u-gap-l {
+    gap: calc(var(--unit) * 3);
+}
+.u-pad-s {
+    padding: calc(var(--unit));
+}
+.u-pad-m {
+    padding: calc(var(--unit) * 2);
+}
+.u-pad-l {
+    padding: calc(var(--unit) * 3);
+}
+
+.pixel-outline {
+    outline: var(--border) solid var(--fg);
+    image-rendering: pixelated;
+}
+
+.pixel-outline:hover:not(:disabled) {
+    filter: brightness(1.2);
+}
+
+.pixel-rounded {
+    border-radius: var(--radius);
+} /* 角丸/角張りを変数で切替 */
+
+@keyframes flash {
+    from {
+        filter: brightness(1.6);
+    }
+    to {
+        filter: brightness(1);
+    }
+}
+.u-flash {
+    animation: flash var(--dur-fast) ease-out;
+}

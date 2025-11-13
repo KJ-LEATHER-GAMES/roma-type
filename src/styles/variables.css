@@ -1,0 +1,35 @@
+/* src/styles/variables.css */
+:root {
+    /* フォント */
+    --font-ui: 'PixelMplus10', 'DotGothic16', system-ui, sans-serif;
+
+    /* ベーススケール（整数拡大を前提） */
+    --unit: 8px; /* ベース単位 */
+    --radius: 0px; /* 角張りデフォルト */
+    --border: 2px;
+
+    /* パレット（デフォルト: Famicom Warm） */
+    --bg: #1a1a1a;
+    --fg: #f8f8d8;
+    --accent: #ffb000;
+    --muted: #6b6b6b;
+
+    /* アニメ用 */
+    --dur-fast: 80ms;
+    --dur-mid: 160ms;
+    --dur-slow: 320ms;
+}
+
+/* data-theme に応じて上書き（例: GB Mono / Neon） */
+:root[data-theme='gb'] {
+    --bg: #0f380f;
+    --fg: #9bbc0f;
+    --accent: #306230;
+    --muted: #8bac0f;
+}
+:root[data-theme='neon'] {
+    --bg: #050510;
+    --fg: #e6faff;
+    --accent: #00e5ff;
+    --muted: #7a7a9a;
+}

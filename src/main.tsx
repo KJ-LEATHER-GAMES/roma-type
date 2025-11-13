@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
 // 4. ルーターインポート
-import { router } from './app/router.tsx';
+import { router } from './router.tsx';
 // 5. CSSインポート
 import './styles/pixel.css'; // ← 忘れずに
 // 6. テーマインポート
