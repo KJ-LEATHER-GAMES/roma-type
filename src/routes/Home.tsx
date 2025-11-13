@@ -2,9 +2,7 @@
 // 1. インポート
 import { useNavigate } from 'react-router-dom';
 
-import { PixelButton } from '../../components/ui/PixelButton';
-import { PixelPanel } from '../../components/ui/PixelPanel';
-import { ThemeSwitcher } from '../../components/ui/ThemeSwitcher';
+import { PixelPanel, PixelButton, ThemeSwitcher } from '@/components/ui';
 
 // 6. ホームコンポーネント
 export default function Home() {
@@ -21,7 +19,7 @@ export default function Home() {
                 </h1>
                 <ThemeSwitcher />
             </header>
-            <PixelPanel rounded>
+            <PixelPanel pixcel-rounded>
                 <p style={{ margin: '0 0 12px' }}>
                     レトロテーマのベース適用済み。
                     <br />
