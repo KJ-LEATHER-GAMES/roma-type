@@ -184,3 +184,41 @@ canvas {
 .pixel-button:active {
     transform: translateY(1px);
 }
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.u-flash {
+    animation: flash 0.25s ease-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    50% {
+        transform: translateX(2px);
+    }
+    75% {
+        transform: translateX(-2px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.u-shake {
+    animation: shake 0.2s ease-in-out;
+}
