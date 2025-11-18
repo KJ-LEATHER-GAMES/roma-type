@@ -317,3 +317,12 @@ canvas {
     font-size: 0.9rem;
     text-align: center;
 }
+
+.target-word-main {
+    font-size: 48px; /* かなり大きく */
+}
+
+.target-word-sub {
+    font-size: 24px; /* 読み仮名として少し小さく */
+    opacity: 0.8;
+}

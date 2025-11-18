@@ -4,27 +4,56 @@ export type JudgeKind = 'progress' | 'complete' | 'mismatch';
 
 export interface JudgeResult {
     kind: JudgeKind;
-    // 必要であれば拡張用のフィールド
-    // matchedLength: number;
+
+    // どのローマ字パターンにマッチしているか（UI側で typed / remaining を出すために使う）
+    matchedTarget?: string;
+    matchedIndex?: number;
 }
+// オーバーロード
+export function judgeTyping(targetWord: string, typed: string): JudgeResult;
+export function judgeTyping(targetWords: string[], typed: string): JudgeResult;
 
-export function judgeTyping(targetWord: string, typed: string): JudgeResult {
+export function judgeTyping(targetWord: string | string[], typed: string): JudgeResult {
+    const targets = Array.isArray(targetWord) ? targetWord : [targetWord];
+
+    // 未入力ならとりあえず progress
     if (typed.length === 0) {
-        return { kind: 'progress' };
+        return {
+            kind: 'progress',
+            matchedTarget: targets[0],
+            matchedIndex: 0,
+        };
     }
 
-    // 途中まで合っているか？
-    const prefix = targetWord.slice(0, typed.length);
+    let progressIndex: number | null = null;
 
-    if (typed === targetWord) {
-        return { kind: 'complete' };
+    for (let i = 0; i < targets.length; i += 1) {
+        const t = targets[i];
+
+        if (typed === t) {
+            return {
+                kind: 'complete',
+                matchedTarget: t,
+                matchedIndex: i,
+            };
+        }
+
+        const prefix = t.slice(0, typed.length);
+        if (typed === prefix) {
+            if (progressIndex === null) {
+                progressIndex = i;
+            }
+        }
     }
 
-    if (typed === prefix) {
-        // まだ途中だけど、ここまでは合っている
-        return { kind: 'progress' };
+    if (progressIndex !== null) {
+        const t = targets[progressIndex];
+        return {
+            kind: 'progress',
+            matchedTarget: t,
+            matchedIndex: progressIndex,
+        };
     }
 
-    // ここまで来たら不一致
     return { kind: 'mismatch' };
 }
