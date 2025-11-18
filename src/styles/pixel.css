@@ -185,34 +185,36 @@ canvas {
     transform: translateY(1px);
 }
 
-@keyframes flash {
+@keyframes rtq-finish-flash {
     0% {
-        opacity: 1;
+        opacity: 0.4;
     }
     50% {
-        opacity: 0.2;
-    }
-    100% {
         opacity: 1;
     }
+    100% {
+        opacity: 0.7;
+    }
 }
 
+/* 語クリア / Finish 共通で使う Flash */
 .u-flash {
-    animation: flash 0.25s ease-out;
+    animation: rtq-finish-flash 0.24s ease-out; /* 0.24秒：0.3秒以内に収める */
 }
 
-@keyframes shake {
+/* レイアウトに影響しない transform ベースの揺れ（3px × 2回） */
+@keyframes rtq-shake {
     0% {
         transform: translateX(0);
     }
     25% {
-        transform: translateX(-2px);
+        transform: translateX(-3px);
     }
     50% {
-        transform: translateX(2px);
+        transform: translateX(3px);
     }
     75% {
-        transform: translateX(-2px);
+        transform: translateX(-3px);
     }
     100% {
         transform: translateX(0);
@@ -220,5 +222,98 @@ canvas {
 }
 
 .u-shake {
-    animation: shake 0.2s ease-in-out;
+    animation: rtq-shake 0.22s ease-in-out; /* 0.3秒以内で少しだけ余韻 */
+}
+
+/* Play画面共通メインエリア */
+.play-main {
+    min-height: 260px;
+    display: flex;
+    flex-direction: column; /* ★ これを追加！ */
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* かな表示（大きく目立たせる） */
+.target-kana {
+    font-size: 3.2rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.08em; /* ピクセルフォントの潰れ防止に少し広げる */
+}
+
+/* ローマ字表示（中央揃え／typed+remaining） */
+.target-romaji {
+    font-size: 1.8rem;
+    text-align: center;
+    letter-spacing: 0.12em; /* ローマ字もやや広めに */
+}
+
+/* 入力済み部分 */
+.target-romaji .typed {
+    /* ベース前景色。プロジェクトのテーマ変数があればそれを使う */
+    color: var(--rtq-foreground, #f8f8f8);
+}
+
+/* 残り部分（少し薄く） */
+.target-romaji .remaining {
+    margin-left: 0.25em;
+    color: var(--rtq-foreground-muted, #9e9e9e);
+}
+
+/* Finishタイトルを少し大きめに */
+.finish-title {
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* ミス時に remaining を赤く点滅させる */
+@keyframes rtq-miss-blink {
+    0% {
+        color: #ff5555;
+    }
+    50% {
+        color: #ffe0e0;
+    }
+    100% {
+        color: #ff5555;
+    }
+}
+
+/* mismatch 時（Play.tsx で u-miss を付けている） */
+.target-romaji.u-miss .remaining {
+    animation: rtq-miss-blink 0.25s ease-in-out;
+}
+
+/* Finish用のミニパネル */
+.play-finish-panel {
+    padding: 1.5rem 2rem;
+    border: 2px solid var(--rtq-border, #f8f8d8);
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow:
+        0 0 0 4px #000,
+        0 0 0 6px var(--rtq-border, #f8f8d8);
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* Finishタイトル */
+.play-finish-title {
+    font-size: 2.2rem;
+    text-align: center;
+}
+
+/* メッセージ文 */
+.play-finish-message {
+    text-align: center;
+    margin: 0;
+}
+
+/* ガイドテキスト（idle / playing 共通） */
+.play-guide-text {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    text-align: center;
 }
