@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { PixelPanel, PixelButton, ThemeSwitcher } from '@/components/ui';
 import { useTypingCore } from '@/features/typing/core';
-import { SIMPLE_WORDS } from '@/features/typing/data/simpleWords';
+import { ROMAJI_WORDS } from '@/features/typing/data/words';
 
 /**
  * タイピング入力画面 (S1-4: T4-1/T4-2/T4-3 対応)
@@ -32,12 +32,12 @@ export default function Play() {
     // 演出用クラス（Flash / Shake / Miss）
     const [effectClass, setEffectClass] = useState<string | null>(null);
 
-    const currentWord = SIMPLE_WORDS[currentIndex];
-    const totalQuestions = SIMPLE_WORDS.length;
+    const currentWord = ROMAJI_WORDS[currentIndex];
+    const totalQuestions = ROMAJI_WORDS.length;
 
     // 1問分のタイピングコア
     const { typed, remaining, judgeResult, startRound, stopRound, reset } = useTypingCore({
-        targetWord: currentWord.romaji,
+        targetRomajiVariants: currentWord.romajiVariants,
     });
 
     // ヘッダーに表示する「何問目か」
@@ -86,7 +86,7 @@ export default function Play() {
         const timer = setTimeout(() => {
             setCurrentIndex((prev) => {
                 const next = prev + 1;
-                const lastIndex = SIMPLE_WORDS.length - 1;
+                const lastIndex = ROMAJI_WORDS.length - 1;
 
                 if (next > lastIndex) {
                     // 5問すべて完了 → Finishへ
@@ -159,11 +159,22 @@ export default function Play() {
                 </div>
             )}
 
-            {/* ▼ PLAYING（出題中） ▼ */}
             {phase === 'playing' && (
                 <div className="u-stack u-gap-3 u-align-center u-justify-center play-main">
-                    {/* かな表示（大きく中央） */}
-                    <div className="target-kana pixel-font-tight">{currentWord.kana}</div>
+                    {/* 漢字＋かな表示 */}
+                    <div className="u-stack u-align-center u-gap-1">
+                        {/* 漢字があれば漢字を大きく、なければかなを大きく */}
+                        <div className="target-word-main pixel-font-tight">
+                            {currentWord.kanji ?? currentWord.kana}
+                        </div>
+
+                        {/* 漢字があるときだけ、かなをサブ表示 */}
+                        {currentWord.kanji && (
+                            <div className="target-word-sub pixel-font-tight">
+                                {currentWord.kana}
+                            </div>
+                        )}
+                    </div>
 
                     {/* ローマ字 [typed][remaining] */}
                     <div className={`target-romaji pixel-font-tight ${effectClass ?? ''}`}>
@@ -173,8 +184,6 @@ export default function Play() {
 
                     {/* ガイド文：プレイ中 */}
                     <p className="pixel-font play-guide-text">ローマ字を にゅうりょくしてね！</p>
-
-                    {/* プレイ中はボタンなし（キーボード入力のみ） */}
                 </div>
             )}
 
