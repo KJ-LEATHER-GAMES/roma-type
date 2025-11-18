@@ -3,15 +3,27 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { judgeTyping } from './judge';
 import type { JudgeResult } from './judge';
-import type { TypingState } from './types';
 
 /**
- * 英字のみ受付（a-z）。修飾キー/リピートは無視。
+ * キーボードイベントが「有効な英字キー」かどうかを判定
+ * - a〜z のみ受付
+ * - repeat / 修飾キー付きは無視
  */
 const isLetter = (e: KeyboardEvent): boolean => {
     if (e.repeat || e.altKey || e.ctrlKey || e.metaKey) return false;
     const k = e.key.toLowerCase();
     return /^[a-z]$/.test(k);
+};
+
+export type TypingStatus = 'idle' | 'running' | 'stopped' | 'completed';
+
+export type TypingState = {
+    status: TypingStatus;
+    typed: string;
+    lastKey: string | null;
+    startedAt: number | null;
+    mistakeCount: number;
+    judgeResult: JudgeResult;
 };
 
 /**
@@ -24,7 +36,7 @@ export interface TypingCoreOptions {
 
 /**
  * useTypingCore が返すAPI
- * - state: S1-1 で定義したタイピング状態（status / typed / startedAt など）
+ * - state: タイピング状態（status / typed / mistakeCount など）
  * - typed: 直近の入力済み文字列（state.typed のショートカット）
  * - remaining: targetWord から typed を除いた残り部分
  * - judgeResult: targetWord と typed の前方一致/完全一致/不一致の判定
@@ -46,15 +58,19 @@ export interface TypingCoreAPI {
  * - startRound(): 入力受付開始（typedをクリア）
  * - stopRound(): 入力受付停止
  * - reset(): 状態を初期化
- * S1-2 では、targetWord との比較結果（judgeResult, remaining）も提供する。
+ * S1-4ではミスしても継続可能・mistakeCountをカウントする。
  */
 export function useTypingCore(options: TypingCoreOptions): TypingCoreAPI {
     const { targetWord } = options;
 
-    const [state, setState] = useState<TypingState>({
+    const [state, setState] = useState<TypingState>(() => ({
         status: 'idle',
         typed: '',
-    });
+        lastKey: null,
+        startedAt: null,
+        mistakeCount: 0,
+        judgeResult: judgeTyping(targetWord, ''),
+    }));
 
     // 最新の稼働フラグ（useEffect内から参照）
     const runningRef = useRef(false);
@@ -64,9 +80,12 @@ export function useTypingCore(options: TypingCoreOptions): TypingCoreAPI {
         setState({
             status: 'running',
             typed: '',
+            lastKey: null,
             startedAt: typeof performance !== 'undefined' ? performance.now() : Date.now(),
+            mistakeCount: 0,
+            judgeResult: judgeTyping(targetWord, ''),
         });
-    }, []);
+    }, [targetWord]);
 
     const stopRound = useCallback(() => {
         runningRef.current = false;
@@ -75,38 +94,66 @@ export function useTypingCore(options: TypingCoreOptions): TypingCoreAPI {
 
     const reset = useCallback(() => {
         runningRef.current = false;
-        setState({ status: 'idle', typed: '' });
-    }, []);
+        setState({
+            status: 'idle',
+            typed: '',
+            lastKey: null,
+            startedAt: null,
+            mistakeCount: 0,
+            judgeResult: judgeTyping(targetWord, ''),
+        });
+    }, [targetWord]);
 
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
             if (!runningRef.current) return;
             if (!isLetter(e)) return;
 
-            const k = e.key.toLowerCase();
-            // ここでは「入力を積む」のみに専念し、判定は judgeTyping に委譲
-            setState((s) => ({
-                ...s,
-                typed: (s.typed ?? '') + k,
-                lastKey: k,
-            }));
+            const key = e.key.toLowerCase();
+
+            setState((prev) => {
+                if (prev.status !== 'running') return prev;
+
+                const nextTyped = (prev.typed ?? '') + key;
+                const nextJudge = judgeTyping(targetWord, nextTyped);
+
+                if (nextJudge.kind === 'mismatch') {
+                    return {
+                        ...prev,
+                        lastKey: key,
+                        mistakeCount: prev.mistakeCount + 1,
+                        judgeResult: nextJudge,
+                    };
+                }
+
+                const nextStatus: TypingStatus =
+                    nextJudge.kind === 'complete' ? 'completed' : 'running';
+
+                return {
+                    ...prev,
+                    typed: nextTyped,
+                    lastKey: key,
+                    judgeResult: nextJudge,
+                    status: nextStatus,
+                };
+            });
         };
 
         window.addEventListener('keydown', onKeyDown);
         return () => {
             window.removeEventListener('keydown', onKeyDown);
-            runningRef.current = false;
+            // ★ ここは消す
+            // runningRef.current = false;
         };
-    }, []);
+    }, [targetWord]);
 
-    // state から typed を取り出し（undefined の場合に備えてフォールバック）
+    // state から typed を取り出し
     const typed = state.typed ?? '';
 
     // 残り文字列（UI のための派生値）
     const remaining = useMemo(() => targetWord.slice(typed.length), [targetWord, typed]);
 
-    // 正誤判定（前方一致 / 完全一致 / 不一致）
-    const judgeResult = useMemo(() => judgeTyping(targetWord, typed), [targetWord, typed]);
+    const judgeResult = state.judgeResult;
 
     // 返却するAPIをまとめてメモ化
     return useMemo(
