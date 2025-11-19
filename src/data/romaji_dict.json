@@ -1,0 +1,42 @@
+[
+    {
+        "id": "shashin_01",
+        "kanji": "写真",
+        "kana": "しゃしん",
+        "romajiVariants": ["shashin", "syasin"],
+        "grade": 3,
+        "hint": "camera"
+    },
+    {
+        "id": "kyabetsu_01",
+        "kanji": "キャベツ",
+        "kana": "きゃべつ",
+        "romajiVariants": ["kyabetu"],
+        "grade": 3,
+        "hint": "yasai"
+    },
+    {
+        "id": "shukudai_01",
+        "kanji": "宿題",
+        "kana": "しゅくだい",
+        "romajiVariants": ["shukudai", "syukudai"],
+        "grade": 3,
+        "hint": "homework"
+    },
+    {
+        "id": "choco_01",
+        "kanji": "チョコ",
+        "kana": "ちょこ",
+        "romajiVariants": ["choko", "tyoko"],
+        "grade": 3,
+        "hint": "okashi"
+    },
+    {
+        "id": "kyuuri_01",
+        "kanji": "きゅうり",
+        "kana": "きゅうり",
+        "romajiVariants": ["kyuuri"],
+        "grade": 3,
+        "hint": "yasai"
+    }
+]

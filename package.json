@@ -11,7 +11,9 @@
         "lint": "eslint .",
         "typecheck": "tsc --noEmit",
         "format": "prettier \"**/*.{js,jsx,ts,tsx,json,css,scss,md,html,yml,yaml}\" --write",
-        "format:check": "prettier \"**/*.{js,jsx,ts,tsx,json,css,scss,md,html,yml,yaml}\" --check"
+        "format:check": "prettier \"**/*.{js,jsx,ts,tsx,json,css,scss,md,html,yml,yaml}\" --check",
+        "test": "vitest",
+        "test:ui": "vitest --ui"
     },
     "dependencies": {
         "clsx": "^2.1.1",
@@ -27,6 +29,7 @@
         "@types/react-dom": "^19.1.9",
         "@types/react-router-dom": "^5.3.3",
         "@vitejs/plugin-react": "^5.0.4",
+        "@vitest/ui": "^4.0.10",
         "eslint": "^9.36.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-import-resolver-typescript": "^4.4.4",
@@ -37,11 +40,13 @@
         "eslint-plugin-unused-imports": "^4.3.0",
         "globals": "^16.4.0",
         "husky": "^9.1.7",
+        "jsdom": "^27.2.0",
         "lint-staged": "^16.2.6",
         "prettier": "^3.6.2",
         "typescript": "~5.9.3",
         "typescript-eslint": "^8.45.0",
-        "vite": "^7.1.7"
+        "vite": "^7.1.7",
+        "vitest": "^4.0.10"
     },
     "lint-staged": {
         "*.{ts,tsx,js,jsx,json,css,md}": [
