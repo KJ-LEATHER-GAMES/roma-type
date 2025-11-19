@@ -66,7 +66,7 @@ export default [
             '@typescript-eslint/no-non-null-assertion': 'off',
         },
     },
-    // eslint.config.mjs の export default 配列の末尾あたりに追加
+
     {
         files: ["**/*.{ts,tsx,js,jsx}"],
         settings: {
@@ -80,5 +80,21 @@ export default [
                 }
             }
         }
-    }
+    },
+
+    {
+        files: ["**/*.test.{ts,tsx}"],
+        rules: {
+            '@typescript-eslint/no-unsafe-call': 'off',
+            '@typescript-eslint/no-unsafe-member-access': 'off',
+        },
+        languageOptions: {
+            globals: {
+                describe: "readonly",
+                test: "readonly",
+                it: "readonly",
+                expect: "readonly",
+            },
+        },
+    },
 ];

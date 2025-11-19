@@ -27,8 +27,21 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-pnpm-
 
-            - run: pnpm --version
-            - run: pnpm i --frozen-lockfile
-            - run: pnpm lint
-            - run: pnpm typecheck
-            - run: pnpm format:check
+            - name: Show pnpm version
+              run: pnpm --version
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Lint
+              run: pnpm lint
+
+            - name: Typecheck
+              run: pnpm typecheck
+
+            - name: Format check
+              run: pnpm format:check
+
+            # ★ ここで Vitest のテストを実行
+            - name: Unit tests
+              run: pnpm test
