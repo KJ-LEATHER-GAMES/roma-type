@@ -1,0 +1,246 @@
+[
+    {
+        "id": "dog_01",
+        "kanji": "犬",
+        "kana": "いぬ",
+        "english": "dog",
+        "romajiVariants": ["inu"],
+        "grade": 1
+    },
+    {
+        "id": "cat_01",
+        "kanji": "猫",
+        "kana": "ねこ",
+        "english": "cat",
+        "romajiVariants": ["neko"],
+        "grade": 1
+    },
+    {
+        "id": "fox_01",
+        "kanji": "狐",
+        "kana": "きつね",
+        "english": "fox",
+        "romajiVariants": ["kitsune"],
+        "grade": 2
+    },
+    {
+        "id": "suika_01",
+        "kanji": "スイカ",
+        "kana": "すいか",
+        "english": "watermelon",
+        "romajiVariants": ["suika"],
+        "grade": 1
+    },
+    {
+        "id": "sora_01",
+        "kanji": "空",
+        "kana": "そら",
+        "english": "sky",
+        "romajiVariants": ["sora"],
+        "grade": 1
+    },
+    {
+        "id": "yama_01",
+        "kanji": "山",
+        "kana": "やま",
+        "english": "mountain",
+        "romajiVariants": ["yama"],
+        "grade": 1
+    },
+    {
+        "id": "kawa_01",
+        "kanji": "川",
+        "kana": "かわ",
+        "english": "river",
+        "romajiVariants": ["kawa"],
+        "grade": 1
+    },
+    {
+        "id": "hana_01",
+        "kanji": "花",
+        "kana": "はな",
+        "english": "flower",
+        "romajiVariants": ["hana"],
+        "grade": 1
+    },
+    {
+        "id": "hon_01",
+        "kanji": "本",
+        "kana": "ほん",
+        "english": "book",
+        "romajiVariants": ["hon"],
+        "grade": 1
+    },
+    {
+        "id": "tegami_01",
+        "kanji": "手紙",
+        "kana": "てがみ",
+        "english": "letter",
+        "romajiVariants": ["tegami"],
+        "grade": 2
+    },
+
+    {
+        "id": "shashin_01",
+        "kanji": "写真",
+        "kana": "しゃしん",
+        "english": "photo",
+        "romajiVariants": ["shashin", "syasin"],
+        "grade": 2
+    },
+    {
+        "id": "kyou_01",
+        "kanji": "今日",
+        "kana": "きょう",
+        "english": "today",
+        "romajiVariants": ["kyou"],
+        "grade": 2
+    },
+    {
+        "id": "chouchou_01",
+        "kanji": "蝶々",
+        "kana": "ちょうちょ",
+        "english": "butterfly",
+        "romajiVariants": ["chouchou", "tyoutyou"],
+        "grade": 3
+    },
+    {
+        "id": "kyabetsu_01",
+        "kanji": "キャベツ",
+        "kana": "きゃべつ",
+        "english": "cabbage",
+        "romajiVariants": ["kyabetsu", "kyabetu"],
+        "grade": 3
+    },
+    {
+        "id": "ryuu_01",
+        "kanji": "竜",
+        "kana": "りゅう",
+        "english": "dragon",
+        "romajiVariants": ["ryuu"],
+        "grade": 3
+    },
+    {
+        "id": "gyuunyuu_01",
+        "kanji": "牛乳",
+        "kana": "ぎゅうにゅう",
+        "english": "milk",
+        "romajiVariants": ["gyuunyuu"],
+        "grade": 3
+    },
+    {
+        "id": "shukudai_01",
+        "kanji": "宿題",
+        "kana": "しゅくだい",
+        "english": "homework",
+        "romajiVariants": ["shukudai", "syukudai"],
+        "grade": 3
+    },
+    {
+        "id": "chouri_01",
+        "kanji": "調理",
+        "kana": "ちょうり",
+        "english": "cooking",
+        "romajiVariants": ["chouri", "tyouri"],
+        "grade": 3
+    },
+
+    {
+        "id": "sanpo_01",
+        "kanji": "散歩",
+        "kana": "さんぽ",
+        "english": "walk",
+        "romajiVariants": ["sanpo"],
+        "grade": 2
+    },
+    {
+        "id": "sannin_01",
+        "kanji": "三人",
+        "kana": "さんにん",
+        "english": "three people",
+        "romajiVariants": ["sannin"],
+        "grade": 2
+    },
+    {
+        "id": "kanna_01",
+        "kanji": "鉋",
+        "kana": "かんな",
+        "english": "plane tool",
+        "romajiVariants": ["kanna"],
+        "grade": 2
+    },
+    {
+        "id": "denki_01",
+        "kanji": "電気",
+        "kana": "でんき",
+        "english": "electricity",
+        "romajiVariants": ["denki"],
+        "grade": 2
+    },
+
+    {
+        "id": "gakkou_01",
+        "kanji": "学校",
+        "kana": "がっこう",
+        "english": "school",
+        "romajiVariants": ["gakkou"],
+        "grade": 2
+    },
+    {
+        "id": "kitte_01",
+        "kanji": "切手",
+        "kana": "きって",
+        "english": "stamp",
+        "romajiVariants": ["kitte"],
+        "grade": 2
+    },
+    {
+        "id": "ippai_01",
+        "kanji": "いっぱい",
+        "kana": "いっぱい",
+        "english": "a lot",
+        "romajiVariants": ["ippai"],
+        "grade": 2
+    },
+    {
+        "id": "yappari_01",
+        "kanji": "やっぱり",
+        "kana": "やっぱり",
+        "english": "after all",
+        "romajiVariants": ["yappari"],
+        "grade": 3
+    },
+    {
+        "id": "sakkaa_01",
+        "kanji": "サッカー",
+        "kana": "さっかー",
+        "english": "soccer",
+        "romajiVariants": ["sakkaa"],
+        "grade": 2
+    },
+    {
+        "id": "kekkon_01",
+        "kanji": "結婚",
+        "kana": "けっこん",
+        "english": "marriage",
+        "romajiVariants": ["kekkon"],
+        "grade": 3
+    },
+
+    {
+        "id": "tokyo_01",
+        "kanji": "東京",
+        "kana": "とうきょう",
+        "english": "Tokyo",
+        "romajiVariants": ["toukyou"],
+        "grade": 3
+    },
+    {
+        "id": "obaasan_01",
+        "kanji": "おばあさん",
+        "kana": "おばあさん",
+        "english": "grandmother",
+        "romajiVariants": ["obaasan"],
+        "grade": 3
+    }
+]
